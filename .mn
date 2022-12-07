@@ -1,3 +1,4 @@
+ubiquity -b
 mount /dev/md0p1 /mnt
 mount -o bind /dev/pts /mnt/dev/pts
 mount -o bind /proc /mnt/proc
