@@ -1,0 +1,76 @@
+sudo su
+lsblk 
+
+fdisk /dev/sda
+n
+p
+1
+enter
+enter
+l
+t
+fd
+w
+
+*** b,c,d,e **
+
+apt-get install mdadm
+mdadm -C /dev/md0 -l1 -n2 /dev/sda(b)1
+mdadm -C /dev/md1 -l5 -n3 /dev/sd(c)(d)(e)1
+
+lsblk
+
+----- gparted ----
+
+aller sur /dev/mdo
+peripherique > msdos
+créer une nouvelle partition 
+taille : 32000 
+sys de fichier ext 4 
+appliquer les modifications 
+
+partitionner le reste en linux swap
+
+aller sur /dev/md1
+peripherique > msdos
+nouvelle partition > ajouter
+appliquer les modifications
+quitter gparted
+
+#ubiquity -b
+
+continuer l'installer normalement et lors du type d'installation, cliquer sur " autre chose"
+aller sur md0p1
+clique droit, modifier; système de fichier journalier ext4, foramater, mettre en racine du systeme (/)
+
+aller sur md1p1 
+clique droit, modifier; système de fichier journalier ext4, foramater, home  (/home)
+
+installer maintenant 
+
+Une fois installé, cliquer sur continuer à tester
+
+mount /dev/md0p1 /mnt
+mount -o bind /dev/pts /mnt/dev/pts
+mount -o bind /proc /mnt/proc
+mount -o bind /dev /mnt/dev
+mount -o bind /sys /mnt/sys
+
+cat /etc/resolv.conf >> /mnt/etc/resolv.conf
+
+chroot /mnt
+
+nano /etc/grub.d/10_linux
+
+	mettre le quikboot à 0 et appuyer sur f2
+
+grub-install /dev/sda
+grub-install /dev/sdb
+grub-install /dev/sdc
+grub-install /dev/sdd
+grub-install /dev/sde
+update-grub
+exit
+reboot
+
+cat /proc/mdstat
