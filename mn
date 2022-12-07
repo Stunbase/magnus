@@ -1,18 +1,3 @@
-sudo su
-lsblk 
-
-fdisk /dev/sda
-n
-p
-1
-enter
-enter
-l
-t
-fd
-w
-
-*** b,c,d,e **
 
 apt-get install mdadm
 mdadm -C /dev/md0 -l1 -n2 /dev/sd[a-b]1
