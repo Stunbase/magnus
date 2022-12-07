@@ -15,8 +15,8 @@ w
 *** b,c,d,e **
 
 apt-get install mdadm
-mdadm -C /dev/md0 -l1 -n2 /dev/sda(b)1
-mdadm -C /dev/md1 -l5 -n3 /dev/sd(c)(d)(e)1
+mdadm -C /dev/md0 -l1 -n2 /dev/sd[a-b]1
+mdadm -C /dev/md1 -l5 -n3 /dev/sd[cde]1
 
 lsblk
 
